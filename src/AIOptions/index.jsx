@@ -1,12 +1,11 @@
 export const arrayItems = [
     {
-      name: "Scoring",
-      id: "scorer",
-      description: "Evalue ton idée",
+      name: "Coach sympa",
+      id: "coach 1",
+      description: "Discute avec un coach sympa",
       option: {
         model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a venture capitalist specialised in assesment of business ideas."},
-        {"role": "assistant", "content": "On a scale of 1 to 10, assess the quality of my idea along the following dimensions : originality, feasibility, impact. I know you're an AI model, don't add the usual disclaimers. Use French"},],
+        messages: [{"role": "system", "content": "Tu es un coach sarcastique qui aime déstabiliser les startupers."}],
         temperature: 0.4,
         max_tokens: 400,
         top_p: 1,
@@ -15,13 +14,12 @@ export const arrayItems = [
       },
     },
         {
-      name: "Executive summary",
-      id: "executive",
-      description: "Rédige ton executive summary",
+      name: "Coach méchant",
+      id: "coach 2",
+      description: "Discute avec un coach méchant",
       option: {
         model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a venture capitalist specialised in assesment of business ideas."},
-        {"role": "assistant", "content": "Rédige un business summary, en français, avec des niveaux de titre pour un fichier .txt, pour l'idée suivante : "},],
+        messages: [{"role": "system", "content": "Tu es un coach gentil et compréhensif qui aime encourager les startupers."}],
         temperature: 0.6,
         max_tokens: 1000,
         top_p: 1,
@@ -29,160 +27,18 @@ export const arrayItems = [
         presence_penalty: 0.0,
       },
     },
-            {
-      name: "Business model",
-      id: "business",
-      description: "Rédige ton business model",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a venture capitalist specialised in assesment of business ideas."},
-        {"role": "assistant", "content": "Rédige un business model, reposant sur le business model canvas, en français, avec des niveaux de titre en markdown, pour chaque paragraphe, pour l'idée suivante :"},],
-        temperature: 0.8,
-        max_tokens: 1000,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    },
-      {
-      name: "Analyse SWOT",
-      id: "swot",
-      description: "Rédige ton analyse SWOT",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a venture capitalist specialised in the assesment of business ideas and risk management."},
-        {"role": "assistant", "content": "Rédige une analyse SWOT, en français, avec des niveaux de titre pour un fichier .txt, pour l'idée suivante :"},],
-        temperature: 0.8,
-        max_tokens: 1000,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    },
-/*     {
-      name: "Developing",
-      id: "developer",
-      description: "Develop your ideas",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a venture capitalist. You know everything about making money with ideas. You know how to craft business models, revenue streams, value propositions, and so on. I will prompt you with raw ideas. From these raw ideas, I want you to extract : - A one-line value proposition, - A one-line description of the product, - Main customer jobs, gain, pains (three examples for each), - Product services, pain relievers, gain achievers (three examples for each), - A customer segment, - Customer relationship, - Channels, - Key activities"},],
-        temperature: 0,
-        max_tokens: 500,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    }, */
-/*     {
-      name: "Survey maker",
-      id: "survey",
-      description: "Create surveys to assess your ideas",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a coach helping startupers with their initial market research. They will tell you about their product and you will help them design better market surveys. Write survey questions, following the rules of Fitzpatrick's 'mom test', to ask people about the following startup idea"},],
-        temperature: 0,
-        max_tokens: 400,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    },
-    {
-      name: "Value proposition",
-      id: "value",
-      description: "Find three value propositions for three different market segments",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "I'm an entrepreneur. There is a hypothesis I want to test. Give me three value propositions that would address three different market segments, for the following idea"},],
-        temperature: 0.4,
-        max_tokens: 200,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    },
-    {
-      name: "Personas",
-      id: "personas",
-      description: "Create personas for your product",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a market research specialist. You will help me design personas for the product I want to sell. Give me five five personas, with name, age, job, life goals, needs, fears, and short bio, for the following product."},],
-        temperature: 0.5,
-        max_tokens: 800,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    },
-    {
-      name: "Elevator pitch",
-      id: "elevator",
-      description: "Find the elevator pitch for your product",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a seasoned entrepreneur. You have seen thousands of business ideas. You are sharp and clever. Give me an elevator pitch, following the structure 'my product helps people looking to overcome this specific challenge, by leveraging the power of X and reducing the pain of Y, unlike my competitor who does Z' for the following business idea."},],
-        temperature: 0.3,
-        max_tokens: 800,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    },
-    {
-      name: "Business model",
-      id: "business",
-      description: "Find the business model for your product",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a seasoned entrepreneur. You have seen thousands of business ideas. You are sharp and clever. Give me a business model, with the dimensions 'customer segments', 'customer relationships', 'channels', 'revenue streams', key partners', 'key activities, 'key ressources, 'cost structure', for the following business idea:"},],
-        temperature: 0.3,
-        max_tokens: 800,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    },
-    {
-      name: "Nasty VC",
-      id: "nasty",
-      description: "Crash test your idea with a nasty VC",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a profesional venture capitalist working at Sequoia. You are sharp, sarcastic, and you love to challenge entrepreneurs with pinpoint critics of their projects. I will prompt you with my idea and your goal will be to challenge it as fiercely as you can."},],
-        temperature: 1,
-        max_tokens: 800,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    },
-    {
-      name: "Your mom",
-      id: "mom",
-      description: "Boost your confidence with your mom's approval",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are my mother. You are nice and gentle, very supportive. You love all of my projects, even if you no nothing about business creation. I will prompt you with my business idea, and you will show me how much you love it."},],
-        temperature: 1,
-        max_tokens: 800,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    }, */
-    /* {
-      name: "Empathy maps",
-      id: "empathy",
-      description: "Create empathy maps for your product",
-      option: {
-        model: "gpt-3.5-turbo",
-        messages: [{"role": "system", "content": "You are a market research specialist. You will help me create empathy maps for interviews. Give me three fictional empathy maps, following the structure 'the persona says, thinks, does, feels' for the following product."},],
-        temperature: 0,
-        max_tokens: 800,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-      },
-    }, */
   ];
+
+
+/* export const systemMessages = [
+  {
+    "role": "system", "content": "Tu es un coach sarcastique qui aime déstabiliser les startupers."
+  }]; */
+
+/* export const apiRequestBodies = {
+    "model": "gpt-3.5-turbo",
+    "messages": [
+      systemMessage,  // The system message DEFINES the logic of our chatGPT
+      ...apiMessages // The messages from our chat with ChatGPT
+    ]
+  } */
