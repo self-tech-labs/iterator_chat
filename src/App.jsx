@@ -3,7 +3,7 @@ import './App.css'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
-const API_KEY = "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";
+const API_KEY = import.meta.env.VITE_Open_AI_Key;
 // "Explain things like you would to a 10 year old learning how to code."
 const systemMessage = { //  Explain things like you're talking to a software professional with 5 years of experience.
   "role": "system", "content": "Explain things like you're talking to a software professional with 2 years of experience."
@@ -12,8 +12,8 @@ const systemMessage = { //  Explain things like you're talking to a software pro
 function App() {
   const [messages, setMessages] = useState([
     {
-      message: "Hello, I'm ChatGPT! Ask me anything!",
-      sentTime: "just now",
+      message: "Bonjour, je suis un coach en création d'entreprise. Posez-moi vos questions !",
+      sentTime: "à l'instant",
       sender: "ChatGPT"
     }
   ]);
@@ -97,7 +97,7 @@ function App() {
                 return <Message key={i} model={message} />
               })}
             </MessageList>
-            <MessageInput placeholder="Type message here" onSend={handleSend} />        
+            <MessageInput placeholder="Écrivez votre message ici" onSend={handleSend} />        
           </ChatContainer>
         </MainContainer>
       </div>
