@@ -40,3 +40,47 @@
 .read-the-docs {
   color: #888;
 }
+
+.grid-main {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 15px;
+  margin-top: 40px;
+  color: white;
+
+  @media (max-width: 768px) {
+    grid-template-columns: auto;
+  }
+
+}
+
+.grid-child {
+  border: 0px solid rgba(185, 28, 28);
+  border-radius: 15px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background-color: rgba(236, 71, 85, 0.9);
+
+  @media (max-width: 768px) {
+    margin: 0 auto;
+  }
+}
+
+.grid-child:hover {
+  background-color: whitesmoke;
+  color: rgba(161, 44, 52);
+  border: 0px solid #212121;
+}
+
+.grid-child h3 {
+  font-family: Poppins;
+  font-weight: 700;
+  color: black;
+}
+
+.grid-child p {
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 15px;
+}

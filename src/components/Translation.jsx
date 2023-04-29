@@ -1,136 +1,107 @@
-/* import React from "react";
-import { saveAs } from "file-saver";
+import { useState } from 'react'
+import '../App.css'
+import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
+import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
-export default function Translation({ doStuff, setInput, result }) {
-  const [count, setCount] = React.useState(0);
-
-  function handleSaveText() {
-    if (result.length === 0) return;
-    const blob = new Blob([result], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "mondocument.txt");
-  }
-
-  return (
-    <div>
-      <h1 className="title">Écrivez votre idée ici</h1>
-      <h3 className="subtitle">Longueur max : 200 caractères</h3>
-      <h3 className="subtitle">Temps de réponse moyen : 10 secondes</h3>
-      <textarea
-        className="text-area"
-        maxLength={200}
-        cols={55}
-        rows={10}
-        onChange={(e) => [setInput(e.target.value), setCount(e.target.value.length)]}
-      ></textarea>
-      <p>character count : {count}</p>
-      <button className="action-btn" onClick={doStuff}>C'est parti</button>
-      <h3 className="result-text">{result.length > 0 ? result : ""}</h3>
-      <button className="back-btn" onClick={handleSaveText}>Save as .txt</button>
-      <button className="back-btn" onClick={event =>  window.location.href=''}>Retour à la sélection de l'outil</button>
-    </div>
-  );
-} */
-
-/* import React, { useState } from "react";
-import { saveAs } from "file-saver";
-
-export default function Translation({ doStuff, setInput, result }) {
-  const [count, setCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-
-  function handleSaveText() {
-    if (result.length === 0) return;
-    const blob = new Blob([result], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "result.txt");
-  }
-
-  async function handleDoStuff() {
-    setIsLoading(true);
-    await doStuff();
-    setIsLoading(false);
-  }
-
-  return (
-    <div>
-      <h1 className="title">Écrivez votre idée ici</h1>
-      <h3 className="subtitle">Longueur max : 200 caractères</h3>
-      <h3 className="subtitle">Temps de réponse moyen : 10 secondes</h3>
-      <textarea
-        className="text-area"
-        maxLength={200}
-        cols={55}
-        rows={10}
-        onChange={(e) => [setInput(e.target.value), setCount(e.target.value.length)]}
-      ></textarea>
-      <p>character count : {count}</p>
-      <button className="action-btn" onClick={handleDoStuff}>
-        {isLoading ? "Loading..." : "C'est parti"}
-      </button>
-      {isLoading && <div className="ui-loader"></div>}
-      <h3 className="result-text">{result.length > 0 ? result : ""}</h3>
-      <button className="back-btn" onClick={handleSaveText}>Save as .txt</button>
-      <button className="back-btn" onClick={() => (window.location.href = "")}>
-        Retour à la sélection de l'outil
-      </button>
-    </div>
-  );
-}
- */
-
-
-import React, { useState } from "react";
-import { saveAs } from "file-saver";
-
-export default function Translation({ doStuff, setInput, result }) {
-  const [count, setCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [showLoadingText, setShowLoadingText] = useState(true);
-
-  function handleSaveText() {
-    if (result.length === 0) return;
-    const blob = new Blob([result], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "result.txt");
-  }
-
-  async function handleDoStuff() {
-    setIsLoading(true);
-    setShowLoadingText(true);
-    const intervalId = setInterval(() => {
-      setShowLoadingText((prevShowLoadingText) => !prevShowLoadingText);
-    }, 700);
-
-    await doStuff();
-
-    clearInterval(intervalId);
-    setIsLoading(false);
-  }
-
-  return (
-    <div>
-      <h1 className="title">Écrivez votre idée ici</h1>
-      <h3 className="subtitle">Longueur max : 200 caractères</h3>
-      <h3 className="subtitle">Temps de réponse moyen : 10 secondes</h3>
-      <textarea
-        className="text-area"
-        maxLength={200}
-        cols={55}
-        rows={10}
-        onChange={(e) => [setInput(e.target.value), setCount(e.target.value.length)]}
-      ></textarea>
-      <p>character count : {count}</p>
-      <button className="action-btn" onClick={handleDoStuff}>
-        {isLoading ? (showLoadingText ? "Loading..." : "") : "C'est parti"}
-      </button>
-      {isLoading && <div className="ui-loader"></div>}
-      <h3 className="result-text">{result.length > 0 ? result : ""}</h3>
-      <button className="back-btn" onClick={handleSaveText}>Save as .txt</button>
-      <button className="back-btn" onClick={() => (window.location.href = "")}>
-        Retour à la sélection de l'outil
-      </button>
-    </div>
-  );
+const API_KEY = "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";
+// "Explain things like you would to a 10 year old learning how to code."
+const systemMessage = { //  Explain things like you're talking to a software professional with 5 years of experience.
+  "role": "system", "content": "Explain things like you're talking to a software professional with 2 years of experience."
 }
 
+export default function Translation() {
+  const [messages, setMessages] = useState([
+    {
+      message: "Hello, I'm ChatGPT! Ask me anything!",
+      sentTime: "just now",
+      sender: "ChatGPT"
+    }
+  ]);
+  const [isTyping, setIsTyping] = useState(false);
+
+  const handleSend = async (message) => {
+    const newMessage = {
+      message,
+      direction: 'outgoing',
+      sender: "user"
+    };
+
+    const newMessages = [...messages, newMessage];
+    
+    setMessages(newMessages);
+
+    // Initial system message to determine ChatGPT functionality
+    // How it responds, how it talks, etc.
+    setIsTyping(true);
+    await processMessageToChatGPT(newMessages);
+  };
+
+  async function processMessageToChatGPT(chatMessages) { // messages is an array of messages
+    // Format messages for chatGPT API
+    // API is expecting objects in format of { role: "user" or "assistant", "content": "message here"}
+    // So we need to reformat
+
+    let apiMessages = chatMessages.map((messageObject) => {
+      let role = "";
+      if (messageObject.sender === "ChatGPT") {
+        role = "assistant";
+      } else {
+        role = "user";
+      }
+      return { role: role, content: messageObject.message}
+    });
 
 
+    // Get the request body set up with the model we plan to use
+    // and the messages which we formatted above. We add a system message in the front to'
+    // determine how we want chatGPT to act. 
+    const apiRequestBody = {
+      "model": "gpt-3.5-turbo",
+      "messages": [
+        systemMessage,  // The system message DEFINES the logic of our chatGPT
+        ...apiMessages // The messages from our chat with ChatGPT
+      ]
+    }
+
+    await fetch("https://api.openai.com/v1/chat/completions", 
+    {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + API_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(apiRequestBody)
+    }).then((data) => {
+      return data.json();
+    }).then((data) => {
+      console.log(data);
+      setMessages([...chatMessages, {
+        message: data.choices[0].message.content,
+        sender: "ChatGPT"
+      }]);
+      setIsTyping(false);
+    });
+  }
+
+  return (
+    <div className="App">
+      <div style={{ position:"relative", height: "800px", width: "700px"  }}>
+        <MainContainer>
+          <ChatContainer>       
+            <MessageList 
+              scrollBehavior="smooth" 
+              typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}
+            >
+              {messages.map((message, i) => {
+                console.log(message)
+                return <Message key={i} model={message} />
+              })}
+            </MessageList>
+            <MessageInput placeholder="Type message here" onSend={handleSend} />        
+          </ChatContainer>
+        </MainContainer>
+      </div>
+    </div>
+  )
+}
 
