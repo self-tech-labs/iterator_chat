@@ -6,13 +6,13 @@ import { MainContainer, ChatContainer, MessageList, Message, MessageInput, Typin
 const API_KEY = import.meta.env.VITE_Open_AI_Key;
 // "Explain things like you would to a 10 year old learning how to code."
 const systemMessage = { //  Explain things like you're talking to a software professional with 5 years of experience.
-  "role": "system", "content": "Explain things like you're talking to a software professional with 2 years of experience."
+  "role": "system", "content": "Pretend you are a startup coach. Explain things in a simple manner, with user-friendly metaphors. If possible, try to ask the user questions that will help him find the answer by himself. Answer as briefly as possible."
 }
 
 function App() {
   const [messages, setMessages] = useState([
     {
-      message: "Bonjour, je suis un coach en création d'entreprise. Posez-moi vos questions !",
+      message: "Bonjour, je suis le coach en création d'entreprise d'Iterator. Posez-moi vos questions !",
       sentTime: "à l'instant",
       sender: "ChatGPT"
     }
@@ -85,12 +85,12 @@ function App() {
 
   return (
     <div className="App">
-      <div style={{ position:"relative", height: "800px", width: "700px"  }}>
+      <div style={{ position:"relative", height: "500px", width: "400px"  }}>
         <MainContainer>
           <ChatContainer>       
             <MessageList 
               scrollBehavior="smooth" 
-              typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}
+              typingIndicator={isTyping ? <TypingIndicator content="Le coach écrit" /> : null}
             >
               {messages.map((message, i) => {
                 console.log(message)
